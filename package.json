@@ -1,39 +1,40 @@
 {
-    "name": "@belopash/typeorm-store",
-    "version": "1.5.0",
-    "description": "Optimized TypeORM based storage for squid mappings",
-    "repository": {
-        "url": "https://github.com/belopash/squid-typeorm-store"
-    },
-    "main": "lib/index.js",
-    "files": [
-        "lib",
-        "src",
-        "!src/test"
-    ],
-    "scripts": {
-        "build": "rm -rf lib && tsc",
-        "up": "docker-compose up -d 2>&1",
-        "down": "docker-compose down -v 2>&1",
-        "test": "mocha -r dotenv/config lib/test/*.test.js --exit --timeout 5000"
-    },
-    "dependencies": {
-        "@subsquid/logger": "^1.3.3",
-        "@subsquid/util-internal": "^3.2.0",
-        "async-mutex": "^0.5.0"
-    },
-    "peerDependencies": {
-        "@subsquid/typeorm-config": "^4",
-        "@subsquid/typeorm-store": "^1",
-        "pg": "^8.11.3",
-        "typeorm": "^0.3.16"
-    },
-    "devDependencies": {
-        "@types/mocha": "^10.0.6",
-        "@types/node": "^20.12.7",
-        "@types/pg": "^8.11.5",
-        "expect": "^29.7.0",
-        "mocha": "^10.4.0",
-        "typescript": "^5.4.5"
-    }
+  "name": "@q6crypto/typeorm-store",
+  "version": "1.5.0",
+  "description": "Optimized TypeORM based storage for squid mappings",
+  "repository": {
+    "url": "https://github.com/Q6Crypto/squid-typeorm-store"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "src",
+    "!src/test"
+  ],
+  "scripts": {
+    "build": "rm -rf lib && tsc",
+    "up": "docker-compose up -d 2>&1",
+    "down": "docker-compose down -v 2>&1",
+    "test": "mocha -r dotenv/config lib/test/*.test.js --exit --timeout 5000",
+    "postinstall": "cd node_modules/@belopash/typeorm-store && npm run build"
+  },
+  "dependencies": {
+    "@subsquid/logger": "^1.3.3",
+    "@subsquid/util-internal": "^3.2.0",
+    "async-mutex": "^0.5.0"
+  },
+  "peerDependencies": {
+    "@subsquid/typeorm-config": "^4",
+    "@subsquid/typeorm-store": "^1",
+    "pg": "^8.11.3",
+    "typeorm": "^0.3.16"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.7",
+    "@types/pg": "^8.11.5",
+    "expect": "^29.7.0",
+    "mocha": "^10.4.0",
+    "typescript": "^5.4.5"
+  }
 }
