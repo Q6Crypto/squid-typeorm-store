@@ -82,6 +82,8 @@ export declare class StoreWithCache extends Store {
     private saveMany;
     private getFkSignature;
     private upsertMany;
+    getMissing<E extends EntityType>(entityClass: EntityTarget<E>): Promise<string[]>;
+    getMissingAll(): Promise<Map<EntityMetadata, string[]>>;
 }
 export declare class DeferredEntity<E extends EntityType> {
     private opts;
