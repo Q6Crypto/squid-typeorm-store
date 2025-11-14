@@ -1,6 +1,6 @@
 {
   "name": "@q6crypto/typeorm-store",
-  "version": "1.5.0",
+  "version": "1.5.0.1",
   "description": "Optimized TypeORM based storage for squid mappings",
   "repository": {
     "url": "https://github.com/Q6Crypto/squid-typeorm-store"
