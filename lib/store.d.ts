@@ -77,7 +77,7 @@ export declare class StoreWithCache extends Store {
     private getCommitOrderIndex;
     private cloneEntity;
     private traverseEntity;
-    private getEntityMetadata;
+    getEntityMetadata(entityClass: EntityTarget<any>): EntityMetadata;
     private getEntityPkHash;
     private saveMany;
     private getFkSignature;
