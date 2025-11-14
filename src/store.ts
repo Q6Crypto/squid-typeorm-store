@@ -57,17 +57,19 @@ export class StoreWithCache extends Store {
   private commitOrder: EntityMetadata[];
   private updates: ChangeMap;
   private defers: DeferList;
-  public readonly cache: CacheMap;
+  private cache: CacheMap;
   private logger: Logger;
+  public readonly em: () => EntityManager;
 
   private currentCommit = new Mutex();
   private currentLoad = new Mutex();
 
   constructor(
-    private em: () => EntityManager,
+    em: () => EntityManager,
     opts: { changeTracker?: ChangeTracker; commitOrder: EntityMetadata[] }
   ) {
     super(em, opts.changeTracker);
+    this.em = em;
     this.commitOrder = opts.commitOrder;
     this.logger = createLogger("sqd:store");
     this.cache = new CacheMap({ logger: this.logger });
@@ -690,7 +692,7 @@ export class StoreWithCache extends Store {
     fn(entity);
   }
 
-  public getEntityMetadata(entityClass: EntityTarget<any>) {
+  private getEntityMetadata(entityClass: EntityTarget<any>) {
     const em = this.em();
     return em.connection.getMetadata(entityClass);
   }

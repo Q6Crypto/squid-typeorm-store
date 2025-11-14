@@ -1,7 +1,6 @@
 import { Entity, EntityClass, FindManyOptions as FindManyOptions_, FindOneOptions as FindOneOptions_, Store } from "@subsquid/typeorm-store";
 import { ChangeTracker } from "@subsquid/typeorm-store/lib/hot";
 import { EntityManager, EntityMetadata, EntityTarget, FindOptionsRelations, FindOptionsWhere, ObjectLiteral } from "typeorm";
-import { CacheMap } from "./utils/cacheMap";
 export { Entity, EntityClass };
 export interface EntityType extends ObjectLiteral {
     id: string;
@@ -24,12 +23,12 @@ export interface FindManyOptions<E> extends FindManyOptions_<E> {
     cache?: boolean;
 }
 export declare class StoreWithCache extends Store {
-    private em;
     private commitOrder;
     private updates;
     private defers;
-    readonly cache: CacheMap;
+    private cache;
     private logger;
+    readonly em: () => EntityManager;
     private currentCommit;
     private currentLoad;
     constructor(em: () => EntityManager, opts: {
@@ -77,7 +76,7 @@ export declare class StoreWithCache extends Store {
     private getCommitOrderIndex;
     private cloneEntity;
     private traverseEntity;
-    getEntityMetadata(entityClass: EntityTarget<any>): EntityMetadata;
+    private getEntityMetadata;
     private getEntityPkHash;
     private saveMany;
     private getFkSignature;
