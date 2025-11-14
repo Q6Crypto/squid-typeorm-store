@@ -755,6 +755,55 @@ export class StoreWithCache extends Store {
   ): Promise<void> {
     return super["upsertMany"](em, entityClass, entities);
   }
+
+  async getMissing<E extends EntityType>(
+    entityClass: EntityTarget<E>
+  ): Promise<string[]> {
+    const metadata = this.getEntityMetadata(entityClass);
+    const defers = this.defers.values();
+    const deferData = defers.get(metadata);
+
+    if (!deferData || deferData.ids.size === 0) {
+      return [];
+    }
+
+    // Ensure load() has been called to populate cache
+    await this.load();
+
+    const missingIds: string[] = [];
+    for (const id of deferData.ids) {
+      const cached = this.cache.get(metadata, id);
+      // If cached but value is null, it means it doesn't exist in DB
+      if (cached && cached.value === null) {
+        missingIds.push(id);
+      }
+    }
+
+    return missingIds;
+  }
+
+  async getMissingAll(): Promise<Map<EntityMetadata, string[]>> {
+    const defers = this.defers.values();
+    const result = new Map<EntityMetadata, string[]>();
+
+    // Ensure load() has been called
+    await this.load();
+
+    for (const [metadata, deferData] of defers) {
+      const missingIds: string[] = [];
+      for (const id of deferData.ids) {
+        const cached = this.cache.get(metadata, id);
+        if (cached && cached.value === null) {
+          missingIds.push(id);
+        }
+      }
+      if (missingIds.length > 0) {
+        result.set(metadata, missingIds);
+      }
+    }
+
+    return result;
+  }
 }
 
 export class DeferredEntity<E extends EntityType> {
