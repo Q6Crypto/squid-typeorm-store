@@ -690,7 +690,7 @@ export class StoreWithCache extends Store {
     fn(entity);
   }
 
-  getEntityMetadata(entityClass: EntityTarget<any>) {
+  public getEntityMetadata(entityClass: EntityTarget<any>) {
     const em = this.em();
     return em.connection.getMetadata(entityClass);
   }
