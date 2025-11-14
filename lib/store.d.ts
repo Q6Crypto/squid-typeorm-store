@@ -23,12 +23,12 @@ export interface FindManyOptions<E> extends FindManyOptions_<E> {
     cache?: boolean;
 }
 export declare class StoreWithCache extends Store {
+    private em;
     private commitOrder;
     private updates;
     private defers;
     private cache;
     private logger;
-    readonly em: () => EntityManager;
     private currentCommit;
     private currentLoad;
     constructor(em: () => EntityManager, opts: {
@@ -76,7 +76,7 @@ export declare class StoreWithCache extends Store {
     private getCommitOrderIndex;
     private cloneEntity;
     private traverseEntity;
-    private getEntityMetadata;
+    getEntityMetadata(entityClass: EntityTarget<any>): EntityMetadata;
     private getEntityPkHash;
     private saveMany;
     private getFkSignature;
