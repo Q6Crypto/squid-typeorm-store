@@ -1,6 +1,7 @@
 import { Entity, EntityClass, FindManyOptions as FindManyOptions_, FindOneOptions as FindOneOptions_, Store } from "@subsquid/typeorm-store";
 import { ChangeTracker } from "@subsquid/typeorm-store/lib/hot";
 import { EntityManager, EntityMetadata, EntityTarget, FindOptionsRelations, FindOptionsWhere, ObjectLiteral } from "typeorm";
+import { CacheMap } from "./utils/cacheMap";
 export { Entity, EntityClass };
 export interface EntityType extends ObjectLiteral {
     id: string;
@@ -27,7 +28,7 @@ export declare class StoreWithCache extends Store {
     private commitOrder;
     private updates;
     private defers;
-    private cache;
+    readonly cache: CacheMap;
     private logger;
     private currentCommit;
     private currentLoad;

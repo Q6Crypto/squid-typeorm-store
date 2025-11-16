@@ -57,7 +57,7 @@ export class StoreWithCache extends Store {
   private commitOrder: EntityMetadata[];
   private updates: ChangeMap;
   private defers: DeferList;
-  private cache: CacheMap;
+  public readonly cache: CacheMap;
   private logger: Logger;
 
   private currentCommit = new Mutex();
